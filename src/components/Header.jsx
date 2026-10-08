@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { Bell } from "lucide-react";
+import { Bell, Plus } from "lucide-react"
 import "./Header.css"
 
 function Header() {
@@ -36,6 +36,11 @@ function Header() {
             </nav>
 
             <div className="header__actions">
+                <button className="header__new-btn">
+                    <Plus size={16} strokeWidth={3} />
+                    New reminder
+                </button>
+
                 <button className="header__icon-btn" aria-label="Notifications">
                     <Bell size={22} strokeWidth={2.5} />
                 </button>
