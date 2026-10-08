@@ -9,6 +9,7 @@
     font-weight: 700;
     letter-spacing: 0.08em;
     color: var(--rt-muted);
+    text-transform: uppercase;
 }
 
 .dashboard__greeting h1 {

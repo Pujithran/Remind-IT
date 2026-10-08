@@ -16,6 +16,18 @@ export default function Dashboard() {
         { id: 4, name: "Medication & health", installs: "8k", rating: "4.6", status: "Premium" },
     ];
 
+    const userName = "Pujithran";
+
+    const now = new Date();
+    const weekday = now.toLocaleDateString("en-GB", { weekday: "long" });
+    const dayMonth = now.toLocaleDateString("en-GB", { day: "numeric", month: "long" });
+    const dateLabel = weekday + " · " + dayMonth;
+
+    const hour = now.getHours();
+    const greeting = hour < 12 ? "Good morning" : hour < 18 ? "Good afternoon" : "Good evening";
+
+    const activeCount = plugins.filter((plugin) => plugin.status === "Active").length;
+
     const notifications = [
         { id: 1, text: "Urban Ecology essay due in 4 hours", urgent: true },
         { id: 2, text: "Road tax renews in 6 days", urgent: false },
@@ -26,14 +38,14 @@ export default function Dashboard() {
 
             <div className="dashboard__header">
                 <div className="dashboard__greeting">
-                    <div className="dashboard__date">WEDNESDAY · 14 MAY</div>
-                    <h1>Good morning, Pujithran</h1>
+                    <div className="dashboard__date">{dateLabel}</div>
+                    <h1>{greeting}, {userName}</h1>
             </div>
 
             <div className="dashboard__stats">
                 <span className="dashboard__stat dashboard__stat--overdue">2 overdue</span>
                 <span className="dashboard__stat">7 upcoming</span>
-                <span className="dashboard__stat">2 active</span>
+                <span className="dashboard__stat">{activeCount} active</span>
             </div>
         </div>
 
