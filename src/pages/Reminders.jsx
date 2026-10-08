@@ -1,3 +1,7 @@
 export default function Reminders() {
-    return <h1>Reminders</h1>
+    return (
+        <div className="page">
+            <h1>Reminders</h1>
+        </div>
+    );
 }

@@ -1,3 +1,7 @@
 export default function Plugins() {
-    return <h1>Plugins</h1>
+    return (
+        <div className="page">
+            <h1>Plugins</h1>
+        </div>
+    );
 }

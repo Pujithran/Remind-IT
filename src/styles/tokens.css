@@ -6,3 +6,9 @@
     --rt-text: #1E2A28;
     --rt-muted: #5B6664;
 }
+
+.page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 24px;
+}
