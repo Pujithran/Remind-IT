@@ -1,0 +1,122 @@
+.reminders__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.reminders__eyebrow {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--rt-muted);
+}
+
+.reminders__title {
+  margin: 4px 0 8px;
+  font-size: 32px;
+  font-weight: 600;
+}
+
+.reminders__subtitle {
+  margin: 0;
+  font-size: 14px;
+  color: var(--rt-muted);
+}
+
+.reminders__new-btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 999px;
+  background: var(--rt-green-dark);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.reminders__list {
+  margin-top: 24px;
+  background: #fff;
+  border: 1px solid var(--rt-border);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.reminders__row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--rt-border);
+}
+
+.reminders__row:last-child {
+  border-bottom: none;
+}
+
+.reminders__check {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--rt-muted);
+  border-radius: 50%;
+}
+
+.reminders__info {
+  flex-grow: 1;
+}
+
+.reminders__name {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.reminders__meta {
+  margin-top: 2px;
+  font-size: 12px;
+  color: var(--rt-muted);
+}
+
+.reminders__tag {
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--rt-cream);
+  color: var(--rt-muted);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.reminders__tag--overdue {
+  background: #fbe3d6;
+  color: #9a4407;
+}
+
+.reminders__tabs {
+  display: flex;
+  gap: 8px;
+  margin-top: 24px;
+}
+
+.reminders__tab {
+  padding: 8px 16px;
+  border: 1px solid var(--rt-border);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--rt-muted);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.reminders__tab--active {
+  background: var(--rt-green-dark);
+  border-color: var(--rt-green-dark);
+  color: #fff;
+}
+
+.reminders__empty {
+  padding: 32px 20px;
+  text-align: center;
+  font-size: 14px;
+  color: var(--rt-muted);
+}
