@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 import { Bell, Plus } from "lucide-react"
 import "./Header.css"
 
-function Header() {
+function Header({ onNewReminder }) {
     return(
         <header className="header">
             
@@ -36,7 +36,7 @@ function Header() {
             </nav>
 
             <div className="header__actions">
-                <button className="header__new-btn">
+                <button className="header__new-btn" onClick={onNewReminder}>
                     <Plus size={16} strokeWidth={3} />
                     New reminder
                 </button>
