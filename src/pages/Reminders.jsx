@@ -2,7 +2,6 @@ import { useState } from "react";
 import NewReminderModal from "../components/NewReminderModal.jsx";
 import "./Reminders.css";
 
-
 const tabs = [
   { key: "all", label: "All" },
   { key: "overdue", label: "Overdue" },
@@ -18,7 +17,6 @@ export default function Reminders({ reminders, onNewReminder, onComplete }) {
       ? reminders.filter((item) => item.status !== "completed")
       : reminders.filter((item) => item.status === filter);
 
-
   return (
     <div className="page">
       <div className="reminders__header">
@@ -29,10 +27,7 @@ export default function Reminders({ reminders, onNewReminder, onComplete }) {
             Everything that needs your attention, ordered without the noise.
           </p>
         </div>
-        <button
-          className="reminders__new-btn"
-          onClick={() => onComplete(item.id)}
-        >
+        <button className="reminders__new-btn" onClick={onNewReminder}>
           New reminder
         </button>{" "}
       </div>
@@ -62,7 +57,7 @@ export default function Reminders({ reminders, onNewReminder, onComplete }) {
           <div className="reminders__row" key={item.id}>
             <button
               className="reminders__check"
-              onClick={() => handleComplete(item.id)}
+              onClick={() => onComplete(item.id)}
               aria-label="Mark as done"
             ></button>{" "}
             <div className="reminders__info">
@@ -81,7 +76,6 @@ export default function Reminders({ reminders, onNewReminder, onComplete }) {
           </div>
         ))}
       </div>
-
     </div>
   );
 }

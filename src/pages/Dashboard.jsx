@@ -1,13 +1,11 @@
 import "./Dashboard.css"
 
-export default function Dashboard() {
+export default function Dashboard({ reminders }) {
 
-    const reminders = [
-        { id: 1, title: 'Submit "Urban Ecology" essay', meta: "Student Assignments due in 4 hours", tag: "Overdue soon", urgent: true },
-        { id: 2, title: "Renew internet + streaming bundle", meta: "Subscriptions tomorrow, 9:00 AM", tag: "Tomorrow", urgent: false },
-        { id: 3, title: "Dentist follow-up · Dr. Halvorsen", meta: "Appointments Thu, 11:30 AM", tag: "This week", urgent: false },
-        { id: 4, title: "Electricity bill · Cycle 07", meta: "Bills & Utilities due Fri, 16 May", tag: "Friday", urgent: false },
-    ];
+    const active = reminders.filter((item) => item.status !== "completed");
+    const overdueCount = active.filter((item) => item.status === "overdue").length;
+    const upcomingCount = active.filter((item) => item.status === "upcoming").length;
+    const todayList = active.slice(0, 4);
 
     const plugins = [
         { id: 1, name: "Vehicle document renewals", installs: "20k", rating: "4.8", status: "Active" },
@@ -43,8 +41,8 @@ export default function Dashboard() {
             </div>
 
             <div className="dashboard__stats">
-                <span className="dashboard__stat dashboard__stat--overdue">2 overdue</span>
-                <span className="dashboard__stat">7 upcoming</span>
+                <span className="dashboard__stat dashboard__stat--overdue">{overdueCount} overdue</span>
+                <span className="dashboard__stat">{upcomingCount} upcoming</span>
                 <span className="dashboard__stat">{activeCount} active</span>
             </div>
         </div>
@@ -69,14 +67,14 @@ export default function Dashboard() {
                             <a className="today__link" href="#">View all</a>
                         </div>
 
-                        {reminders.map((item) => (
+                        {todayList.map((item) => (
                             <div className="today__row" key={item.id}>
                                 <div className="today__check"></div>
                                 <div className="today__info">
                                     <div className="today__name">{item.title}</div>
                                     <div className="today__meta">{item.meta}</div>
                                 </div>
-                                <span className={item.urgent ? "today__tag today__tag--urgent" : "today__tag"}>
+                                <span className={item.status === "overdue" ? "today__tag today__tag--urgent" : "today__tag"}>
                                     {item.tag}
                                 </span>
                             </div>

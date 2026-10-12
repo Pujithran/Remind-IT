@@ -78,17 +78,8 @@ function App() {
     <>
       <Header onNewReminder={() => setShowModal(true)} />{" "}
       <Routes>
-        <Route path="/" element={<Dashboard />} />
-        <Route
-          path="/reminders"
-          element={
-            <Reminders
-              reminders={reminders}
-              onNewReminder={() => setShowModal(true)}
-              onComplete={handleComplete}
-            />
-          }
-        />{" "}
+        <Route path="/" element={<Dashboard reminders={reminders} />} />
+        <Route path="/reminders" element={<Reminders reminders={reminders} onNewReminder={() => setShowModal(true)} onComplete={handleComplete} />} />{" "}
         <Route path="/plugins" element={<Plugins />} />
         <Route path="/marketplace" element={<Marketplace />} />
       </Routes>
