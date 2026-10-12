@@ -60,6 +60,9 @@
   height: 20px;
   border: 2px solid var(--rt-muted);
   border-radius: 50%;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
 }
 
 .reminders__info {

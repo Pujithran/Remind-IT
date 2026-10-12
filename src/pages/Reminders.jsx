@@ -49,7 +49,7 @@ export default function Reminders() {
 
   const visible =
     filter === "all"
-      ? reminders
+      ? reminders.filter((item) => item.status !== "completed")
       : reminders.filter((item) => item.status === filter);
 
   function handleAddReminder({ title, when, category }) {
@@ -74,6 +74,14 @@ export default function Reminders() {
 
     setReminders([newReminder, ...reminders]);
     setShowModal(false);
+  }
+
+  function handleComplete(id) {
+    setReminders(
+      reminders.map((item) =>
+        item.id === id ? { ...item, status: "completed", tag: "Done" } : item,
+      ),
+    );
   }
 
   return (
@@ -117,7 +125,11 @@ export default function Reminders() {
 
         {visible.map((item) => (
           <div className="reminders__row" key={item.id}>
-            <div className="reminders__check"></div>
+            <button
+              className="reminders__check"
+              onClick={() => handleComplete(item.id)}
+              aria-label="Mark as done"
+            ></button>{" "}
             <div className="reminders__info">
               <div className="reminders__name">{item.title}</div>
               <div className="reminders__meta">{item.meta}</div>
