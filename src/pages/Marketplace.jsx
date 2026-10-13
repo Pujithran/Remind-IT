@@ -1,7 +1,22 @@
+import { useState } from "react";
 import { plugins } from "../data/plugins.js";
 import "./Marketplace.css";
 
 export default function Marketplace() {
+  const [search, setSearch] = useState("");
+  const [filter, setFilter] = useState("all");
+
+  const visible = plugins.filter((plugin) => {
+    const matchesSearch = plugin.name
+      .toLowerCase()
+      .includes(search.toLowerCase());
+    const matchesFilter =
+      filter === "all" ||
+      (filter === "active" && plugin.active) ||
+      plugin.access.toLowerCase() === filter;
+    return matchesSearch && matchesFilter;
+  });
+
   return (
     <div className="page">
       <div className="library__header">
@@ -13,8 +28,31 @@ export default function Marketplace() {
         </p>
       </div>
 
+      <div className="library__controls">
+        <input
+          className="library__search"
+          type="text"
+          placeholder="Search plugins"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+        <select
+          className="library__filter"
+          value={filter}
+          onChange={(e) => setFilter(e.target.value)}
+        >
+          <option value="all">All</option>
+          <option value="active">Active</option>
+          <option value="free">Free</option>
+          <option value="premium">Premium</option>
+        </select>
+      </div>
+
       <div className="library__grid">
-        {plugins.map((plugin) => (
+        {visible.length === 0 && (
+          <div className="library__empty">No plugins match your search.</div>
+        )}
+        {visible.map((plugin) => (
           <div className="plugin-tile" key={plugin.id}>
             <div className="plugin-tile__top">
               <h3 className="plugin-tile__name">{plugin.name}</h3>
