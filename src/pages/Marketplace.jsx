@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { plugins } from "../data/plugins.js";
+import PluginModal from "../components/PluginModal.jsx"
 import "./Marketplace.css";
 
 export default function Marketplace() {
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("all");
+  const [selected, setSelected] = useState(null)
 
   const visible = plugins.filter((plugin) => {
     const matchesSearch = plugin.name
@@ -53,7 +55,7 @@ export default function Marketplace() {
           <div className="library__empty">No plugins match your search.</div>
         )}
         {visible.map((plugin) => (
-          <div className="plugin-tile" key={plugin.id}>
+          <div className="plugin-tile" key={plugin.id} onClick={() => setSelected(plugin)}>
             <div className="plugin-tile__top">
               <h3 className="plugin-tile__name">{plugin.name}</h3>
               <span
@@ -72,6 +74,8 @@ export default function Marketplace() {
           </div>
         ))}
       </div>
+
+      {selected && <PluginModal plugin={selected} onClose={() => setSelected(null)} />}
     </div>
   );
 }
