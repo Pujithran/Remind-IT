@@ -1,9 +1,8 @@
 import { useState } from "react";
-import { plugins } from "../data/plugins.js";
 import PluginModal from "../components/PluginModal.jsx"
 import "./Marketplace.css";
 
-export default function Marketplace() {
+export default function Marketplace({ plugins }) {
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("all");
   const [selected, setSelected] = useState(null)

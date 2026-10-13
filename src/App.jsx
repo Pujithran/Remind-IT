@@ -1,5 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import { useState } from "react";
+import { plugins as initialPlugins } from "./data/plugins.js"
 import NewReminderModal from "./components/NewReminderModal.jsx";
 import Header from "./components/Header.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
@@ -41,6 +42,7 @@ const initialReminders = [
 function App() {
   const [reminders, setReminders] = useState(initialReminders);
   const [showModal, setShowModal] = useState(false);
+  const [plugins, setPlugins] = useState(initialPlugins);
 
   function handleAddReminder({ title, when, category }) {
     const date = new Date(when);
@@ -78,10 +80,10 @@ function App() {
     <>
       <Header onNewReminder={() => setShowModal(true)} />{" "}
       <Routes>
-        <Route path="/" element={<Dashboard reminders={reminders} />} />
+        <Route path="/" element={<Dashboard reminders={reminders} plugins={plugins}/>} />
         <Route path="/reminders" element={<Reminders reminders={reminders} onNewReminder={() => setShowModal(true)} onComplete={handleComplete} />} />{" "}
-        <Route path="/plugins" element={<Plugins />} />
-        <Route path="/marketplace" element={<Marketplace />} />
+        <Route path="/plugins" element={<Plugins plugins={plugins}/>} />
+        <Route path="/marketplace" element={<Marketplace plugins={plugins}/>} />
       </Routes>
       {showModal && (
         <NewReminderModal

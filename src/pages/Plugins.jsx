@@ -1,8 +1,7 @@
-import { plugins } from "../data/plugins.js";
 import { Link } from "react-router-dom";
 import "./Plugins.css";
 
-export default function Plugins() {
+export default function Plugins({ plugins }) {
   const activePlugins = plugins.filter((plugin) => plugin.active);
   return (
     <div className="page">

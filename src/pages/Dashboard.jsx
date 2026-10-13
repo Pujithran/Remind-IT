@@ -1,7 +1,6 @@
-import { plugins } from "../data/plugins.js";
 import "./Dashboard.css";
 
-export default function Dashboard({ reminders }) {
+export default function Dashboard({ reminders, plugins }) {
   const active = reminders.filter((item) => item.status !== "completed");
   const overdueCount = active.filter(
     (item) => item.status === "overdue",
