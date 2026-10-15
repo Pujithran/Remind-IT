@@ -1,4 +1,5 @@
 import "./PluginModal.css";
+import { Link } from "react-router-dom"
 
 export default function PluginModal({ plugin, onClose, onToggle, limitReached, locked }) {
   const blocked = locked || (limitReached && !plugin.active)
@@ -29,9 +30,11 @@ export default function PluginModal({ plugin, onClose, onToggle, limitReached, l
 
         {blocked && (
           <p className="plugin-modal__warning">
-            {locked
-            ? "This is a Premium plugin. Upgrade to Premium to activate it."
-            : "You've reached the Free plan limit. Deactivate a plugin to activate another."}
+            {locked ? (
+              <>This is a Premium plugin. <Link to="/premium">Upgrade to Premium</Link> to activate it.</>
+            ) : (
+              "You've reached the Free plan limit. Deactivate a plugin to activate another."
+            )}
           </p>
         )}
 

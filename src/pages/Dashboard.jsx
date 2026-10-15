@@ -1,6 +1,8 @@
 import "./Dashboard.css";
+import { Link } from "react-router-dom";
+import { FREE_LIMIT, PREMIUM_LIMIT } from "../data/plugins.js";
 
-export default function Dashboard({ reminders, plugins }) {
+export default function Dashboard({ reminders, plugins, isPremium }) {
   const active = reminders.filter((item) => item.status !== "completed");
   const overdueCount = active.filter(
     (item) => item.status === "overdue",
@@ -25,6 +27,7 @@ export default function Dashboard({ reminders, plugins }) {
     hour < 12 ? "Good morning" : hour < 18 ? "Good afternoon" : "Good evening";
 
   const activeCount = plugins.filter((plugin) => plugin.active).length;
+  const limit = isPremium ? PREMIUM_LIMIT : FREE_LIMIT;
   const notifications = [
     { id: 1, text: "Urban Ecology essay due in 4 hours", urgent: true },
     { id: 2, text: "Road tax renews in 6 days", urgent: false },
@@ -101,7 +104,9 @@ export default function Dashboard({ reminders, plugins }) {
           <div className="plugin-card">
             <div className="plugin-card__top">
               <h3 className="plugin-card__title">Vehicle document renewals</h3>
-              <span className="plugin-card__badge">Free · 2/4</span>
+              <span className="plugin-card__badge">
+                Free · {activeCount} / {FREE_LIMIT}
+              </span>
             </div>
 
             <p className="plugin-card__text">
@@ -122,17 +127,35 @@ export default function Dashboard({ reminders, plugins }) {
         <div className="dashboard__sidebar">
           <div className="premium-card">
             <div className="premium-card__top">
-              <span className="premium-card__label">FREE PLAN</span>
-              <span className="premium-card__count">2 / 4 plugins</span>
+              <span className="premium-card__label">
+                {isPremium ? "PREMIUM PLAN" : "FREE PLAN"}
+              </span>
+              <span className="premium-card__count">
+                {activeCount} / {limit} plugins
+              </span>
             </div>
 
-            <h3 className="premium-card__title">Unlock unlimited plugins</h3>
+            <h3 className="premium-card__title">
+              {isPremium ? "You're on Premium" : "Unlock more plugins"}
+            </h3>
+
             <p className="premium-card__text">
-              Get every reminder system plus three premium plugins included.
+              {isPremium
+                ? `Enjoy up to ${PREMIUM_LIMIT} active plugins and every Premium plugin.`
+                : `Get up to ${PREMIUM_LIMIT} active plugins plus access to Premium-only plugins.`}
             </p>
 
-            <button className="premium-card__button">👑 Go premium</button>
+            {isPremium ? (
+              <Link className="premium-card__button" to="/marketplace">
+                Browse plugins
+              </Link>
+            ) : (
+              <Link className="premium-card__button" to="/premium">
+                👑 Go premium
+              </Link>
+            )}
           </div>
+
           <div className="market">
             <div className="market__header">
               <h3 className="market__title">Plugin marketplace</h3>
