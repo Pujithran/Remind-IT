@@ -9,6 +9,7 @@ import Reminders from "./pages/Reminders.jsx";
 import Plugins from "./pages/Plugins.jsx";
 import Marketplace from "./pages/Marketplace.jsx";
 import Premium from "./pages/Premium.jsx";
+import Notifications from "./pages/Notifications.jsx";
 
 const initialReminders = [
   {
@@ -135,6 +136,12 @@ function App() {
           path="/premium" 
           element={<Premium isPremium={isPremium}/>} 
         />
+
+        <Route 
+          path="/notifications"
+          element={<Notifications reminders={reminders} />} 
+        />
+
       </Routes>
       {showModal && (
         <NewReminderModal
