@@ -1,12 +1,15 @@
 import { useState } from "react";
+import { FREE_LIMIT } from "../data/plugins.js";
 import PluginModal from "../components/PluginModal.jsx";
 import "./Marketplace.css";
 
-export default function Marketplace({ plugins, onTogglePlugin }) {
+export default function Marketplace({ plugins, isPremium, onTogglePlugin }) {
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("all");
   const [selectedId, setSelectedId] = useState(null);
   const selected = plugins.find((plugin) => plugin.id === selectedId);
+  const activeCount = plugins.filter((plugin) => plugin.active).length;
+  const limitReached = activeCount >= FREE_LIMIT;
 
   const visible = plugins.filter((plugin) => {
     const matchesSearch = plugin.name
@@ -58,7 +61,7 @@ export default function Marketplace({ plugins, onTogglePlugin }) {
           <div
             className="plugin-tile"
             key={plugin.id}
-            onClick={() => setSelected(plugin)}
+            onClick={() => setSelectedId(plugin.id)}
           >
             <div className="plugin-tile__top">
               <h3 className="plugin-tile__name">{plugin.name}</h3>
@@ -80,7 +83,13 @@ export default function Marketplace({ plugins, onTogglePlugin }) {
       </div>
 
       {selected && (
-        <PluginModal plugin={selected} onClose={() => setSelected(null)} />
+        <PluginModal
+          plugin={selected}
+          onClose={() => setSelectedId(null)}
+          onToggle={() => onTogglePlugin(selected.id)}
+          limitReached={limitReached}
+          locked={selected.access === "Premium" && !isPremium}
+        />
       )}
     </div>
   );

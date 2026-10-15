@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import { useState } from "react";
-import { plugins as initialPlugins } from "./data/plugins.js";
+import { plugins as initialPlugins, FREE_LIMIT } from "./data/plugins.js";
+
 import NewReminderModal from "./components/NewReminderModal.jsx";
 import Header from "./components/Header.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
@@ -43,6 +44,7 @@ function App() {
   const [reminders, setReminders] = useState(initialReminders);
   const [showModal, setShowModal] = useState(false);
   const [plugins, setPlugins] = useState(initialPlugins);
+  const isPremium =  false;
 
   function handleAddReminder({ title, when, category }) {
     const date = new Date(when);
@@ -77,6 +79,17 @@ function App() {
   }
 
   function handleTogglePlugin(id) {
+    const target = plugins.find((plugin) => plugin.id === id);
+    const activeCount = plugins.filter((plugin) => plugin.active).length;
+    
+    if (!target.active && target.access === "Premium" && !isPremium) {
+      return;
+    }
+
+    if (!target.active && activeCount >= FREE_LIMIT) {
+      return;
+    }
+
     setPlugins(
       plugins.map((plugin) =>
         plugin.id === id ? { ...plugin, active: !plugin.active } : plugin,
@@ -105,8 +118,13 @@ function App() {
         <Route path="/plugins" element={<Plugins plugins={plugins} />} />
         <Route
           path="/marketplace"
-          element={<Marketplace plugins={plugins} 
-          onTogglePlugin={handleTogglePlugin} />}
+          element={
+            <Marketplace
+              plugins={plugins}
+              isPremium={isPremium}
+              onTogglePlugin={handleTogglePlugin}
+            />
+          }
         />
       </Routes>
       {showModal && (

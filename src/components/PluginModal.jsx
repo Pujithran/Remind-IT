@@ -1,11 +1,13 @@
 import "./PluginModal.css";
 
-export default function PluginModal({ plugin, onClose }) {
+export default function PluginModal({ plugin, onClose, onToggle, limitReached, locked }) {
+  const blocked = locked || (limitReached && !plugin.active)
+
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal" onClick={(e) => e.stopPropagation()}>
         <h2 className="modal__title">{plugin.name}</h2>
-        <p className="modal_subtitle">{plugin.description}</p>
+        <p className="modal__subtitle">{plugin.description}</p>
         <div className="plugin-modal__stats">
           <div className="plugin-modal__stat">
             <div className="plugin-modal__value">{plugin.rating}</div>
@@ -25,8 +27,16 @@ export default function PluginModal({ plugin, onClose }) {
           notes, and a focused plugin dashboard.
         </p>
 
+        {blocked && (
+          <p className="plugin-modal__warning">
+            {locked
+            ? "This is a Premium plugin. Upgrade to Premium to activate it."
+            : "You've reached the Free plan limit. Deactivate a plugin to activate another."}
+          </p>
+        )}
+
         <div className="modal__actions">
-          <button className="modal__submit" type="button">
+          <button className="modal__submit" type="button" onClick={onToggle} disabled={blocked}>
             {plugin.active ? "Deactivate plugin" : "Activate plugin"}
           </button>
         </div>

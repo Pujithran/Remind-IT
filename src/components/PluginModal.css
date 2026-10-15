@@ -30,3 +30,17 @@
   line-height: 1.5;
   color: var(--rt-muted);
 }
+
+.plugin-modal__warning {
+  margin: 16px 0 0;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: #fbe3d6;
+  color: #9a4407;
+  font-size: 13px;
+}
+
+.modal__submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

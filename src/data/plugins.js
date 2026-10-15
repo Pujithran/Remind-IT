@@ -1,3 +1,5 @@
+export const FREE_LIMIT = 4
+
 export const plugins = [
   { id: 1, name: "Vehicle document renewals", description: "Track insurance, registration, road tax, and service dates.", installs: "20k", rating: "4.8", access: "Free", active: true },
   { id: 2, name: "Student assignments & exams", description: "Keep coursework, exams, and project milestones on schedule.", installs: "12k", rating: "4.7", access: "Free", active: true },
