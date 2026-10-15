@@ -1,11 +1,12 @@
 import { useState } from "react";
-import PluginModal from "../components/PluginModal.jsx"
+import PluginModal from "../components/PluginModal.jsx";
 import "./Marketplace.css";
 
-export default function Marketplace({ plugins }) {
+export default function Marketplace({ plugins, onTogglePlugin }) {
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("all");
-  const [selected, setSelected] = useState(null)
+  const [selectedId, setSelectedId] = useState(null);
+  const selected = plugins.find((plugin) => plugin.id === selectedId);
 
   const visible = plugins.filter((plugin) => {
     const matchesSearch = plugin.name
@@ -54,7 +55,11 @@ export default function Marketplace({ plugins }) {
           <div className="library__empty">No plugins match your search.</div>
         )}
         {visible.map((plugin) => (
-          <div className="plugin-tile" key={plugin.id} onClick={() => setSelected(plugin)}>
+          <div
+            className="plugin-tile"
+            key={plugin.id}
+            onClick={() => setSelected(plugin)}
+          >
             <div className="plugin-tile__top">
               <h3 className="plugin-tile__name">{plugin.name}</h3>
               <span
@@ -74,7 +79,9 @@ export default function Marketplace({ plugins }) {
         ))}
       </div>
 
-      {selected && <PluginModal plugin={selected} onClose={() => setSelected(null)} />}
+      {selected && (
+        <PluginModal plugin={selected} onClose={() => setSelected(null)} />
+      )}
     </div>
   );
 }

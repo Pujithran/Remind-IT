@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import { useState } from "react";
-import { plugins as initialPlugins } from "./data/plugins.js"
+import { plugins as initialPlugins } from "./data/plugins.js";
 import NewReminderModal from "./components/NewReminderModal.jsx";
 import Header from "./components/Header.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
@@ -76,14 +76,38 @@ function App() {
     );
   }
 
+  function handleTogglePlugin(id) {
+    setPlugins(
+      plugins.map((plugin) =>
+        plugin.id === id ? { ...plugin, active: !plugin.active } : plugin,
+      ),
+    );
+  }
+
   return (
     <>
       <Header onNewReminder={() => setShowModal(true)} />{" "}
       <Routes>
-        <Route path="/" element={<Dashboard reminders={reminders} plugins={plugins}/>} />
-        <Route path="/reminders" element={<Reminders reminders={reminders} onNewReminder={() => setShowModal(true)} onComplete={handleComplete} />} />{" "}
-        <Route path="/plugins" element={<Plugins plugins={plugins}/>} />
-        <Route path="/marketplace" element={<Marketplace plugins={plugins}/>} />
+        <Route
+          path="/"
+          element={<Dashboard reminders={reminders} plugins={plugins} />}
+        />
+        <Route
+          path="/reminders"
+          element={
+            <Reminders
+              reminders={reminders}
+              onNewReminder={() => setShowModal(true)}
+              onComplete={handleComplete}
+            />
+          }
+        />{" "}
+        <Route path="/plugins" element={<Plugins plugins={plugins} />} />
+        <Route
+          path="/marketplace"
+          element={<Marketplace plugins={plugins} 
+          onTogglePlugin={handleTogglePlugin} />}
+        />
       </Routes>
       {showModal && (
         <NewReminderModal
