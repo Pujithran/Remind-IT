@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import { useState } from "react";
-import { plugins as initialPlugins, FREE_LIMIT } from "./data/plugins.js";
+import { plugins as initialPlugins, FREE_LIMIT, PREMIUM_LIMIT } from "./data/plugins.js";
 
 import NewReminderModal from "./components/NewReminderModal.jsx";
 import Header from "./components/Header.jsx";
@@ -81,12 +81,13 @@ function App() {
   function handleTogglePlugin(id) {
     const target = plugins.find((plugin) => plugin.id === id);
     const activeCount = plugins.filter((plugin) => plugin.active).length;
+    const limit = isPremium ? PREMIUM_LIMIT : FREE_LIMIT;
     
     if (!target.active && target.access === "Premium" && !isPremium) {
       return;
     }
 
-    if (!target.active && activeCount >= FREE_LIMIT) {
+    if (!target.active && activeCount >= limit) {
       return;
     }
 

@@ -1,4 +1,5 @@
 export const FREE_LIMIT = 4
+export const PREMIUM_LIMIT = 10
 
 export const plugins = [
   { id: 1, name: "Vehicle document renewals", description: "Track insurance, registration, road tax, and service dates.", installs: "20k", rating: "4.8", access: "Free", active: true },

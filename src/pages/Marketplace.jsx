@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FREE_LIMIT } from "../data/plugins.js";
+import { FREE_LIMIT, PREMIUM_LIMIT } from "../data/plugins.js";
 import PluginModal from "../components/PluginModal.jsx";
 import "./Marketplace.css";
 
@@ -9,7 +9,7 @@ export default function Marketplace({ plugins, isPremium, onTogglePlugin }) {
   const [selectedId, setSelectedId] = useState(null);
   const selected = plugins.find((plugin) => plugin.id === selectedId);
   const activeCount = plugins.filter((plugin) => plugin.active).length;
-  const limitReached = activeCount >= FREE_LIMIT;
+  const limitReached = activeCount >= (isPremium ? PREMIUM_LIMIT : FREE_LIMIT);
 
   const visible = plugins.filter((plugin) => {
     const matchesSearch = plugin.name
